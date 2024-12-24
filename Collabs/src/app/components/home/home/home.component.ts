@@ -24,7 +24,6 @@ export class HomeComponent {
 
   addCategory(newCategory: Category): void {
     if (!this.categoryService.isDuplicateCategoryName(newCategory.name)) {
-      newCategory.id = "cat-" + new Date().toISOString();
       this.categoryService.addCategory(newCategory);
     } else {
       console.error('Category name already exists!');
