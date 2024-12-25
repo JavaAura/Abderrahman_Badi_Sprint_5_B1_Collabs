@@ -19,22 +19,22 @@ export class TaskPopupService {
 
   openCreatePopup(status: 'to-do' | 'in-progress' | 'completed') {
     this.statusSubject.next(status);
-    this.editModeSubject.next(false);
     this.currentTaskSubject.next(null);
     this.isOpenSubject.next(true);
+    this.editModeSubject.next(false);
   }
 
   openEditPopup(task: Task) {
-    this.currentTaskSubject.next(task);
-    this.editModeSubject.next(true);
     this.statusSubject.next(task.status);
+    this.currentTaskSubject.next(task);
     this.isOpenSubject.next(true);
+    this.editModeSubject.next(true);
   }
 
   closePopup() {
-    this.isOpenSubject.next(false);
-    this.currentTaskSubject.next(null);
     this.statusSubject.next(null);
+    this.currentTaskSubject.next(null);
+    this.isOpenSubject.next(false);
     this.editModeSubject.next(false);
   }
 

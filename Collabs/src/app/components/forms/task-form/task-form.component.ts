@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnChanges, OnInit } from '@angular/core';
 import { CategoryService } from '../../../services/categories/category.service';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { TaskService } from '../../../services/tasks/task.service';
 import { Category } from '../../../models/category.model';
 import { TaskPopupService } from '../../../services/task-popup/task-popup.service';
 import { combineLatest, Subscription } from 'rxjs';
+import { NotificationService } from '../../../services/notifications/notification.service';
 
 function notInThePastValidator() {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -36,7 +37,6 @@ export class TaskFormComponent implements OnInit {
 
   taskForm: FormGroup;
   categories: Category[] = [];
-  isSubmitting = false;
   private taskId: string | null = null;
   private subscriptions: Subscription[] = [];
 
@@ -47,7 +47,8 @@ export class TaskFormComponent implements OnInit {
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private taskService: TaskService,
-    private taskPopupService: TaskPopupService
+    private taskPopupService: TaskPopupService,
+    private notificationService: NotificationService
   ) {
     this.taskForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
@@ -64,21 +65,24 @@ export class TaskFormComponent implements OnInit {
     return field ? (field.invalid && (field.dirty || field.touched)) : false;
   }
 
+
   ngOnInit() {
-    // Subscribe to categories
     this.subscriptions.push(
       this.categoryService.categories$.subscribe(
         categories => this.categories = categories
       )
     );
 
+    this.initializeFormSubscriptions();
+  }
 
+
+  private initializeFormSubscriptions() {
     const formUpdate$ = combineLatest([
       this.taskPopupService.currentTask$,
       this.taskPopupService.status$
     ]).subscribe(([task, status]) => {
       if (task) {
-
         const formattedDate = task.dueDate instanceof Date
           ? task.dueDate.toISOString().split('T')[0]
           : new Date(task.dueDate).toISOString().split('T')[0];
@@ -101,11 +105,14 @@ export class TaskFormComponent implements OnInit {
         this.taskId = null;
       }
     });
+
     this.subscriptions.push(formUpdate$);
   }
 
+
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions = [];
   }
 
   @HostListener('document:click', ['$event'])
@@ -122,33 +129,32 @@ export class TaskFormComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log("submitting");
+
     if (this.taskForm.invalid) return;
-    console.log(this.taskForm.value);
+    const taskData = this.taskForm.value;
 
-    this.isSubmitting = true;
-    try {
-      const taskData = this.taskForm.value;
-      const task: Task = {
-        id: this.taskId || '',
-        ...taskData,
-        dueDate: new Date(taskData.dueDate)
-      };
+    const task: Task = {
+      id: this.taskId || '',
+      ...taskData,
+      dueDate: new Date(taskData.dueDate)
+    };
 
-      if (this.taskId) {
-        this.taskService.updateTask(this.taskId, task);
+    if (this.taskId) {
+      this.taskService.updateTask(this.taskId, task);
+    } else {
+      if (this.taskService.addTask(task)) {
+        this.notificationService.emitNotification("Task added successfully!", 'success');
       } else {
-        this.taskService.addTask(task);
+        this.notificationService.emitNotification("Error adding category", 'error');
       }
-
-      this.closePopup();
-    } catch (error) {
-      console.error('Error saving task:', error);
-    } finally {
-      this.isSubmitting = false;
     }
+
+    this.closePopup();
+
   }
 
-  deleteTask(){
+  deleteTask() {
     if (this.taskId) {
       this.taskService.removeTask(this.taskId);
       this.closePopup();
