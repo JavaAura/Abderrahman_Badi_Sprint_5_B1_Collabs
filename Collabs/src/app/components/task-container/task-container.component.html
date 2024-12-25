@@ -11,7 +11,7 @@
         <div class="flex flex-col w-full">
             <button type="button"
                 class="rounded-md shadow-sm text-white font-medium bg-black py-3 px-2 transition-all duration-200 hover:bg-gray-950 hover:shadow-md w-50 self-end"
-                data-bs-toggle="modal" data-bs-target="#createModal" (click)="toggleTaskForm('to-do')">
+                data-bs-toggle="modal" data-bs-target="#createModal" (click)="openTaskForm('to-do')">
                 + Create Task
             </button>
         </div>
@@ -27,7 +27,7 @@
         <div class="flex flex-col w-full">
             <button type="button"
                 class="rounded-md shadow-sm text-white font-medium bg-black py-3 px-2 transition-all duration-200 hover:bg-gray-950 hover:shadow-md w-50 self-end"
-                data-bs-toggle="modal" data-bs-target="#createModal" (click)="toggleTaskForm('in-progress')">
+                data-bs-toggle="modal" data-bs-target="#createModal" (click)="openTaskForm('in-progress')">
                 + Create Task
             </button>
         </div>
@@ -43,20 +43,9 @@
         <div class="flex flex-col w-full">
             <button type="button"
                 class="rounded-md shadow-sm text-white font-medium bg-black py-3 px-2 transition-all duration-200 hover:bg-gray-950 hover:shadow-md w-50 self-end"
-                data-bs-toggle="modal" data-bs-target="#createModal" (click)="toggleTaskForm('completed')">
+                data-bs-toggle="modal" data-bs-target="#createModal" (click)="openTaskForm('completed')">
                 + Create Task
             </button>
         </div>
-    </div>
-</div>
-<div *ngIf="isOpen" class="fixed w-full h-full top-0 left-0 items-center flex justify-center z-40 task-popup-background">
-    <div
-        class="bg-white w-7/12 h-fit shadow-xl border-r border-l border-gray-700 flex flex-col items-center overflow-y-auto rounded-md md:h-fit task-form-container">
-        <div class="w-full h-6">
-            <div class="flex justify-end bg-black h-full rounded-tr-md rounded-tl-md">
-                <p (click)="toggleTaskForm()" class="text-1xl text-white font-bold cursor-pointer mr-3 mb-1">&times;</p>
-            </div>
-        </div>
-        <app-task-form class="w-3/4" [editMode]="isEdited" [status]="status" [taskToEdit]="currentTask" />
     </div>
 </div>

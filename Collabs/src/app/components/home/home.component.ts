@@ -3,11 +3,12 @@ import { CategoryService } from '../../services/categories/category.service';
 import { CategoryFormComponent } from "../forms/category-form/category-form.component";
 import { CommonModule } from '@angular/common';
 import { TaskContainerComponent } from "../task-container/task-container.component";
+import { SearchBarComponent } from "../search-bar/search-bar.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CategoryFormComponent, CommonModule, TaskContainerComponent],
+  imports: [CategoryFormComponent, CommonModule, TaskContainerComponent, SearchBarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

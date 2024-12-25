@@ -4,12 +4,12 @@ import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from 
 import { CommonModule } from '@angular/common';
 import { Task } from '../../models/task.model';
 import { TaskService } from '../../services/tasks/task.service';
-import { TaskFormComponent } from "../forms/task-form/task-form.component";
+import { TaskPopupService } from '../../services/task-popup/task-popup.service';
 
 @Component({
   selector: 'app-task-container',
   standalone: true,
-  imports: [TaskCardComponent, CommonModule, DragDropModule, TaskFormComponent],
+  imports: [TaskCardComponent, CommonModule, DragDropModule],
   templateUrl: './task-container.component.html',
   styleUrl: './task-container.component.css'
 })
@@ -25,7 +25,7 @@ export class TaskContainerComponent implements OnInit {
   isEdited = false;
 
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private taskPopupService: TaskPopupService) { }
 
   ngOnInit() {
     this.taskService.tasks$.subscribe(tasks => {
@@ -74,23 +74,10 @@ export class TaskContainerComponent implements OnInit {
     return statusMap[containerId] || 'to-do';
   }
 
-  @HostListener('document:click', ['$event'])
-  handleClickOutside(event: MouseEvent): void {
-    const target = event.target as HTMLElement;
 
-    if (this.isOpen && (target.closest('.task-popup-background') && !target.closest('.task-form-container'))) {
-      this.isOpen = false;
-    }
+  openTaskForm(status: 'completed' | 'in-progress' | 'to-do') {
+      this.taskPopupService.openCreatePopup(status);
   }
 
-  toggleTaskForm(status?: 'completed' | 'in-progress' | 'to-do', isEdited: boolean = false, task?: Task) {
-    this.isOpen = !this.isOpen;
-
-    if (this.isOpen) {
-      this.status = status;
-      this.isEdited = isEdited;
-      this.currentTask = task || null;
-    }
-  }
 
 }
