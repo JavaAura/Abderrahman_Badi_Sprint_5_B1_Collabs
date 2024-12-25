@@ -4,6 +4,6 @@ export interface Task {
     description?: string;
     dueDate: Date;
     priority: 'high' | 'medium' | 'low';
-    status: 'completed' | 'in-progress' | 'not-started';
+    status: 'completed' | 'in-progress' | 'to-do';
     categoryId: string;
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CategoryService } from '../../../services/categories/category.service';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -30,9 +30,9 @@ function notInThePastValidator() {
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.css'
 })
-export class TaskFormComponent {
+export class TaskFormComponent implements OnInit, OnChanges{
   @Input() editMode = false;
-  @Input() status!: 'not-started' | 'in-progress' | 'completed';
+  @Input() status?: 'to-do' | 'in-progress' | 'completed';
   @Input() set taskToEdit(task: Task | null) {
     if (task) {
       const formattedDate = task.dueDate instanceof Date
@@ -78,12 +78,20 @@ export class TaskFormComponent {
     );
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['status'] && this.taskForm) {
+      this.taskForm.patchValue({ status: this.status });
+    }
+  }
+
   isFieldInvalid(fieldName: string): boolean {
     const field = this.taskForm.get(fieldName);
     return field ? (field.invalid && (field.dirty || field.touched)) : false;
   }
 
   onSubmit() {
+    console.log(this.status);
+    console.log(this.taskForm.value);
     if (this.taskForm.invalid) return;
 
     this.isSubmitting = true;

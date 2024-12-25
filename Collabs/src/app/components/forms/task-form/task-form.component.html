@@ -1,56 +1,77 @@
-<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="title">Task Title</label>
-        <input id="title" type="text" formControlName="title" [class.is-invalid]="isFieldInvalid('title')">
-        <div class="text-sm text-red-600" *ngIf="isFieldInvalid('title')">
-            Title is required
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-5 w-full h-full py-10">
+    <div class="flex flex-col mb-3 w-full">
+        <div class="flex flex-col border-2 border-[#A1A1A1] p-2 rounded-md">
+            <p class="text-xs">Task title</p>
+            <input id="title" type="text" formControlName="title" [class.is-invalid]="isFieldInvalid('title')"
+                class="placeholder:font-light placeholder:text-xs focus:outline-none" placeholder="Title" autocomplete="off">
+        </div>
+        <div *ngIf="isFieldInvalid('title')" class="text-red-600 text-xs pl-3">
+            <span *ngIf="taskForm.get('title')?.errors?.['required']">
+                Task title is required
+            </span>
+            <span *ngIf="taskForm.get('title')?.errors?.['minlength']">
+                Task title should be atleast 3 characters
+            </span>
         </div>
     </div>
-
-    <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" formControlName="description"></textarea>
+    <div class="flex flex-col mb-3 w-full">
+        <div class="flex flex-col border-2 border-[#A1A1A1] p-2 rounded-md">
+            <p class="text-xs">Task description</p>
+            <textarea id="description" class="p-1" formControlName="description"></textarea>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label for="dueDate">Due Date</label>
-        <input id="dueDate" type="date" formControlName="dueDate" [class.is-invalid]="isFieldInvalid('dueDate')">
-        <div class="text-sm text-red-600" *ngIf="isFieldInvalid('dueDate')">
+    <div class="flex flex-col mb-3 w-full">
+        <div class="flex flex-col border-2 border-[#A1A1A1] p-2 rounded-md">
+            <p class="text-xs">Due Date</p>
+            <input id="dueDate" type="date" formControlName="dueDate" [class.is-invalid]="isFieldInvalid('dueDate')"
+                class="placeholder:font-light placeholder:text-xs focus:outline-none" placeholder="Title" autocomplete="off">
+        </div>
+        <div *ngIf="isFieldInvalid('dueDate')" class="text-red-600 text-xs pl-3">
             <span *ngIf="taskForm.get('dueDate')?.errors?.['required']">
-                Due date is required
+                Due Date is required
             </span>
             <span *ngIf="taskForm.get('dueDate')?.errors?.['pastDate']">
-                Due date cannot be in the past
+                Due Date cannot be in the past
             </span>
         </div>
     </div>
 
-    <div class="form-group">
-        <label for="priority">Priority</label>
-        <select id="priority" formControlName="priority" [class.is-invalid]="isFieldInvalid('priority')">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-        </select>
-        <div class="text-sm text-red-600" *ngIf="isFieldInvalid('priority')">
-            Priority is required
+    <div class="flex flex-col mb-3 w-full">
+        <div class="flex flex-col border-2 border-[#A1A1A1] p-2 rounded-md">
+            <p class="text-xs">Priority</p>
+            <select id="priority" formControlName="priority" [class.is-invalid]="isFieldInvalid('priority')" class="appearance-none p-1">
+                <option value="" selected disabled hidden>Select a priority</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+        </div>
+        <div *ngIf="isFieldInvalid('priority')" class="text-red-600 text-xs pl-3">
+            <span *ngIf="taskForm.get('priority')?.errors?.['required']">
+                Priority is required
+            </span>
         </div>
     </div>
 
-    <div class="form-group">
-        <label for="categoryId">Category</label>
-        <select id="categoryId" formControlName="categoryId" [class.is-invalid]="isFieldInvalid('categoryId')">
-            <option value="">Select a category</option>
+    <div class="flex flex-col mb-3 w-full">
+        <div class="flex flex-col border-2 border-[#A1A1A1] p-2 rounded-md">
+            <p class="text-xs">Category</p>
+            <select id="categoryId" formControlName="categoryId" [class.is-invalid]="isFieldInvalid('categoryId')" class="appearance-none p-1">
+            <option value="" selected disabled hidden>Select a category</option>
             <option *ngFor="let category of categories" [value]="category.id">
                 {{ category.name }}
             </option>
         </select>
-        <div class="text-sm text-red-600" *ngIf="isFieldInvalid('categoryId')">
-            Category is required
+        </div>
+        <div *ngIf="isFieldInvalid('categoryId')" class="text-red-600 text-xs pl-3">
+            <span *ngIf="taskForm.get('categoryId')?.errors?.['required']">
+                Category is required
+            </span>
         </div>
     </div>
 
-    <button type="submit" [disabled]="taskForm.invalid || isSubmitting">
+    <button type="submit" [disabled]="taskForm.invalid || isSubmitting"
+        class="w-full cursor-pointer rounded-md shadow-sm text-white font-medium bg-black py-3 px-2 transition-all duration-200 hover:bg-gray-950 hover:shadow-md">
         {{ editMode ? 'Update' : 'Create' }} Task
     </button>
 </form>

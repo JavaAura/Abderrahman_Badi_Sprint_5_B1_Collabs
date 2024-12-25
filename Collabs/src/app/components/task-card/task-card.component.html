@@ -1,1 +1,27 @@
-<p>task-card works!</p>
+<div class="card cursor-pointer w-full border border-gray-200 rounded-md p-2 py-4 shadow-md" id={{task.id}} (click)="showDetails(task)">
+    <div class="flex flex-col gap-3">
+        <h5 class="font-medium text-lg">{{task.title}}</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Priority: {{task.priority}}
+        </h6>
+        <div class="flex gap-1">
+            <p class="text-sm font-medium">Description: </p>
+            <p class="card-text" *ngIf="task.description && task.description.length > 99">
+                {{ task.description.substring(0, 99) }}...
+            </p>
+        </div>
+        <div class="flex gap-1">
+            <p class="text-sm font-medium">Description: </p>
+            <p class="card-text" *ngIf="!( task.description && task.description.length > 99)">
+                {{task.description }}
+            </p>
+        </div>
+
+        <div class="flex items-center justify-between">
+            <p class="text-sm font-medium">Assigned at:
+                {{task.dueDate | date:'dd/MM/yyyy HH:mm'}}
+            </p>
+
+            <p class="p-1 px-2 rounded-lg border border-black text-sm self-end w-fit">{{category?.name}}</p>
+        </div>
+    </div>
+</div>

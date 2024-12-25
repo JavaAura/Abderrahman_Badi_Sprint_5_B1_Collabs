@@ -2,11 +2,12 @@ import { Component, HostListener } from '@angular/core';
 import { CategoryService } from '../../services/categories/category.service';
 import { CategoryFormComponent } from "../forms/category-form/category-form.component";
 import { CommonModule } from '@angular/common';
+import { TaskContainerComponent } from "../task-container/task-container.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CategoryFormComponent, CommonModule],
+  imports: [CategoryFormComponent, CommonModule, TaskContainerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -25,7 +26,6 @@ export class HomeComponent {
   }
   
   toggleCategoryForm(): void {
-    console.log(this.isOpen);
     if(this.isOpen){
       this.isOpen = false;
     }else{
