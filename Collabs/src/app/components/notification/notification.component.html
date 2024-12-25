@@ -1,0 +1,6 @@
+<div (click)="closeNotification()" [ngClass]="{
+    'bg-green-600 right-10 opacity-100 z-50': notificationType() === 'success',
+    'bg-red-600 right-10 opacity-100 z-50': notificationType() === 'error' 
+     }" class="fixed py-2 px-4 rounded-md text-white font-medium transition-all duration-500 bottom-10 -right-10 opacity-0 -z-10 cursor-pointer">
+     <p>{{ notificationMessage() }}</p>
+</div>

@@ -1,0 +1,21 @@
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-5 w-full h-full py-10">
+    <div class="flex flex-col mb-3 w-full">
+        <div class="flex flex-col border-2 border-[#A1A1A1] p-2 rounded-md">
+            <p class="text-xs">Category name</p>
+            <input id="name" type="text" formControlName="name" [class.is-invalid]="isFieldInvalid('name')"
+                class="placeholder:font-light placeholder:text-xs focus:outline-none" placeholder="Name" autocomplete="off">
+        </div>
+        <div *ngIf="isFieldInvalid('name')" class="text-red-600 text-xs pl-3">
+            <span *ngIf="categoryForm.get('name')?.errors?.['required']">
+                Category name is required
+            </span>
+            <span *ngIf="categoryForm.get('name')?.errors?.['minlength']">
+                Category name should be atleast 2 characters
+            </span>
+        </div>
+    </div>
+    <button type="submit" [disabled]="categoryForm.invalid || isSubmitting"
+        class="rounded-md shadow-sm text-white font-medium bg-black py-3 px-2 transition-all duration-200 hover:bg-gray-950 hover:shadow-md">
+        Create Category
+    </button>
+</form>

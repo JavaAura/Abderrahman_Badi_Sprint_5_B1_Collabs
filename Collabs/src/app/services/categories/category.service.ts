@@ -58,6 +58,10 @@ export class CategoryService {
         throw new Error('Category name is required');
       }
 
+      if (this.isDuplicateCategoryName(category.name)) {
+        throw new Error('Category name already exists!');
+      }
+
       const newCategories = [...currentCategories, {
         ...category,
         id: category.id || `cat-${Date.now()}-${Math.random().toString(36)}`,

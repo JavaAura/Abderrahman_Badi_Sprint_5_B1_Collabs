@@ -1,0 +1,56 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="title">Task Title</label>
+        <input id="title" type="text" formControlName="title" [class.is-invalid]="isFieldInvalid('title')">
+        <div class="text-sm text-red-600" *ngIf="isFieldInvalid('title')">
+            Title is required
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="dueDate">Due Date</label>
+        <input id="dueDate" type="date" formControlName="dueDate" [class.is-invalid]="isFieldInvalid('dueDate')">
+        <div class="text-sm text-red-600" *ngIf="isFieldInvalid('dueDate')">
+            <span *ngIf="taskForm.get('dueDate')?.errors?.['required']">
+                Due date is required
+            </span>
+            <span *ngIf="taskForm.get('dueDate')?.errors?.['pastDate']">
+                Due date cannot be in the past
+            </span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="priority">Priority</label>
+        <select id="priority" formControlName="priority" [class.is-invalid]="isFieldInvalid('priority')">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+        <div class="text-sm text-red-600" *ngIf="isFieldInvalid('priority')">
+            Priority is required
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="categoryId">Category</label>
+        <select id="categoryId" formControlName="categoryId" [class.is-invalid]="isFieldInvalid('categoryId')">
+            <option value="">Select a category</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+                {{ category.name }}
+            </option>
+        </select>
+        <div class="text-sm text-red-600" *ngIf="isFieldInvalid('categoryId')">
+            Category is required
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="taskForm.invalid || isSubmitting">
+        {{ editMode ? 'Update' : 'Create' }} Task
+    </button>
+</form>
