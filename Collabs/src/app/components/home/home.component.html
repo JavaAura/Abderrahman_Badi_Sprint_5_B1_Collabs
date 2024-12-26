@@ -1,14 +1,15 @@
-<div class="w-11/12 mx-auto py-20 flex-col">
-    <div class="flex justify-between items-center">
+<div class="w-11/12 mx-auto py-20 flex flex-col gap-5">
+    <div class="flex flex-wrap justify-between items-center">
         <h1 class="text-3xl font-medium">Tasks</h1>
-        <app-search-bar/>
+        <app-search-bar class="order-last pt-10 pl-[15%] md:order-none md:pt-0"/>
         <button
-            class="rounded-md shadow-sm text-white font-medium bg-black py-3 px-2 transition-all duration-200 hover:bg-gray-950 hover:shadow-md category-button"
+            class=" rounded-md shadow-sm text-white font-medium bg-black py-3 px-2 transition-all duration-200 hover:bg-gray-950 hover:shadow-md category-button"
             (click)="toggleCategoryForm()">Add Category</button>
     </div>
+    <app-task-container/>
 </div>
 <div *ngIf="isOpen" class="fixed w-full h-full top-0 left-0 items-center flex justify-center z-40 popup-background">
-    <div class="bg-white w-7/12 h-fit shadow-xl border-r border-l border-gray-700 flex flex-col items-center overflow-y-auto rounded-md md:h-fit form-container">
+    <div class="bg-white w-11/12 md:w-7/12 h-fit shadow-xl border-r border-l border-gray-700 flex flex-col items-center overflow-y-auto rounded-md md:h-fit form-container">
         <div class="w-full h-6">
             <div class="flex justify-end bg-black h-full rounded-tr-md rounded-tl-md">
                 <p (click)="toggleCategoryForm()" class="text-1xl text-white font-bold cursor-pointer mr-3 mb-1">&times;</p>
@@ -17,4 +18,3 @@
         <app-category-form class="w-3/4"/>
     </div>
 </div>
-<app-task-container/>
