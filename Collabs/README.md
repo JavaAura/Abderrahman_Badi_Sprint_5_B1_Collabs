@@ -1,27 +1,122 @@
 # Collabs
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.11.
+An efficient and customizable ToDoList application built using Angular 17, providing task and category management, real-time search, and an interactive statistics dashboard.
 
-## Development server
+## Table of Contents
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- [Project Overview](#project-overview)
+- [Installation](#installation)
+- [Structure](#structure)
+- [Features](#features)
+- [Technologies](#technologies)
 
-## Code scaffolding
+## Project Overview
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Context
+This project aims to deliver a user-friendly and responsive ToDoList application that allows an individual to efficiently manage their tasks and categories. The application integrates modern frontend development practices and is tailored to provide a seamless user experience.
 
-## Build
+### Objectives
+- Enable users to create, modify, and delete tasks and categories.
+- Implement real-time search for tasks based on titles or descriptions.
+- Provide an intuitive statistics dashboard to track task completion and overdue statuses.
+- Ensure data persistence using localStorage to retain information even after browser closure.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Installation
 
-## Running unit tests
+### Prerequisites
+- Node.js (v16 or higher)
+- Angular CLI (v17)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Steps
 
-## Running end-to-end tests
+1. **Clone the repository:**
+   ```bash
+   git clone git@github.com:Yorften/Collabs.git
+   cd collabs
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-## Further help
+3. **Build the application:**
+   ```bash
+   ng build
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+4. **Run the application:**
+   ```bash
+   ng serve
+   ```
+   The application will be available at `http://localhost:4200`.
+
+## Structure
+
+The project follows a modular and component-based architecture:
+
+```
+project-folder/
+|-- src/
+    |-- app/
+        |-- components/
+            |-- task-card/      // Task listing and management
+            |-- task-container/      // Tasks container
+            |-- search-bar/  // Search bar component
+            |-- forms/      // Statistics dashboard
+                |-- category-form/      // Form for adding/editing categories
+                |-- task-form/      // Form for adding/editing tasks
+            |-- statistics/      // Statistics dashboard
+            |-- statistics/      // Statistics dashboard
+        |-- services/
+            |-- task.service.ts // Manages task-related operations
+            |-- category.service.ts // Handles category operations
+            |-- notofication.service.ts // Handles notification operations
+            |-- task-popup.service.ts // Handles task form popup globally for creationg and editing (details) operations
+        |-- shared/
+            |-- navbar.component.ts 
+            |-- footer.component.ts
+        |-- models/
+            |-- category.model.ts // Category interface
+            |-- task.model.ts // Task interface
+    |-- assets/
+    |-- styles.css
+```
+
+## Features
+
+- **Task Management**:
+  - Add, modify, and delete tasks with detailed information:
+    - Title (validated for maximum length)
+    - Optional description (validated for maximum length)
+    - Due date and time (validated to prevent past dates)
+    - Priority levels (High, Medium, Low)
+    - Completion status (Not Started, In Progress, Completed)
+
+- **Category Management**:
+  - Create custom categories.
+  - Prevent duplicate category names.
+
+- **Real-Time Search**:
+  - Search tasks dynamically by title or description.
+
+- **Statistics Dashboard**:
+  - Percentage of tasks completed vs. not completed.
+  - Count of overdue tasks.
+  - Interactive charts using Chart.js.
+
+- **Responsive Design**:
+  - Adapted for both desktop and mobile devices using TailwindCSS.
+
+- **Data Persistence**:
+  - Store tasks and categories in `localStorage` as JSON.
+
+## Technologies
+
+- **Framework**: Angular 17
+- **Styling**: CSS, TailwindCSS
+- **Charts**: Chart.js
+- **Data Storage**: localStorage
+- **Development Tools**:
+  - Node.js
+  - Angular CLI

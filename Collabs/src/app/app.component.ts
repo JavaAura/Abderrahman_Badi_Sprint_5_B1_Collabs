@@ -5,7 +5,6 @@ import { FooterComponent } from "./shared/footer/footer.component";
 import { NotificationComponent } from './components/notification/notification.component';
 import { TaskFormComponent } from "./components/forms/task-form/task-form.component";
 
-
 @Component({
   selector: 'app-root',
   standalone: true,

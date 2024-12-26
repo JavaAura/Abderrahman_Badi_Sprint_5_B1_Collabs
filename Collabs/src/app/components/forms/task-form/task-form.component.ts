@@ -129,8 +129,6 @@ export class TaskFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("submitting");
-
     if (this.taskForm.invalid) return;
     const taskData = this.taskForm.value;
 
@@ -141,13 +139,9 @@ export class TaskFormComponent implements OnInit {
     };
 
     if (this.taskId) {
-      this.taskService.updateTask(this.taskId, task);
+      this.taskService.updateTask(this.taskId, task) ? this.notificationService.emitNotification("Task updated successfully!", 'success') : this.notificationService.emitNotification("Error updating category", 'error');
     } else {
-      if (this.taskService.addTask(task)) {
-        this.notificationService.emitNotification("Task added successfully!", 'success');
-      } else {
-        this.notificationService.emitNotification("Error adding category", 'error');
-      }
+      this.taskService.addTask(task) ? this.notificationService.emitNotification("Task added successfully!", 'success') : this.notificationService.emitNotification("Error adding category", 'error');
     }
 
     this.closePopup();
@@ -156,7 +150,7 @@ export class TaskFormComponent implements OnInit {
 
   deleteTask() {
     if (this.taskId) {
-      this.taskService.removeTask(this.taskId);
+      this.taskService.removeTask(this.taskId) ? this.notificationService.emitNotification("Task deleted successfully!", 'success') : this.notificationService.emitNotification("Error deleting category", 'error');
       this.closePopup();
     }
   }

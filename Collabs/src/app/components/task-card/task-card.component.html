@@ -6,19 +6,20 @@
         <div class="flex gap-1" *ngIf="task.description && task.description.length > 99">
             <p class="text-sm font-medium">Description: </p>
             <p class="card-text">
+                sss
                 {{ task.description.substring(0, 99) }}...
             </p>
         </div>
-        <div class="flex gap-1" *ngIf="!( task.description && task.description.length > 99)">
+        <div class="flex items-center gap-1" *ngIf="!( task.description && task.description.length > 99)">
             <p class="text-sm font-medium">Description: </p>
-            <p class="card-text" >
-                {{task.description }}
+            <p class="card-text">
+                {{task.description === null ? "None" : task.description }}
             </p>
         </div>
 
         <div class="flex items-center justify-between">
             <p class="text-sm font-medium">Assigned at:
-                {{task.dueDate | date:'dd/MM/yyyy HH:mm'}}
+                {{task.dueDate | date:'dd/MM/yyyy'}}
             </p>
 
             <p class="p-1 px-2 rounded-lg border border-black text-sm self-end w-fit">{{category?.name}}</p>

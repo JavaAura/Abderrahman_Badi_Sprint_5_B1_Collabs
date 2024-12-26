@@ -42,7 +42,7 @@ export class TaskService {
   
     getTaskById(id: string): Observable<Task | undefined> {
       return this.tasks$.pipe(
-        map(tasks => tasks.find(cat => cat.id === id))
+        map(tasks => tasks.find(task => task.id === id))
       );
     }
   
@@ -60,7 +60,7 @@ export class TaskService {
   
         const newTasks = [...currentTasks, {
           ...task,
-          id: task.id || `cat-${Date.now()}-${Math.random().toString(36)}`,
+          id: task.id || `task-${Date.now()}-${Math.random().toString(36)}`,
           createdAt: new Date().toISOString()
         }];
   
