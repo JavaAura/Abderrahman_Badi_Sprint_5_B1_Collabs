@@ -59,26 +59,26 @@ The project follows a modular and component-based architecture:
 project-folder/
 |-- src/
     |-- app/
-        |-- components/
-            |-- task-card/      // Task listing and management
-            |-- task-container/      // Tasks container
-            |-- search-bar/  // Search bar component
-            |-- forms/      // Statistics dashboard
-                |-- category-form/      // Form for adding/editing categories
-                |-- task-form/      // Form for adding/editing tasks
-            |-- statistics/      // Statistics dashboard
-            |-- statistics/      // Statistics dashboard
-        |-- services/
-            |-- task.service.ts // Manages task-related operations
-            |-- category.service.ts // Handles category operations
-            |-- notofication.service.ts // Handles notification operations
-            |-- task-popup.service.ts // Handles task form popup globally for creationg and editing (details) operations
-        |-- shared/
-            |-- navbar.component.ts 
-            |-- footer.component.ts
-        |-- models/
-            |-- category.model.ts // Category interface
-            |-- task.model.ts // Task interface
+    |   |-- components/
+    |   |   |-- task-card/      // Task listing and management
+    |   |   |-- task-container/      // Tasks container
+    |   |   |-- search-bar/  // Search bar component
+    |   |   |-- forms/      // Statistics dashboard
+    |   |   |   |-- category-form/      // Form for adding/editing categories
+    |   |   |   |-- task-form/      // Form for adding/editing tasks
+    |   |   |-- statistics/      // Statistics dashboard
+    |   |   |-- statistics/      // Statistics dashboard
+    |   |-- services/
+    |   |   |-- task.service.ts // Manages task-related operations
+    |   |   |-- category.service.ts // Handles category operations
+    |   |   |-- notofication.service.ts // Handles notification operations
+    |   |   |-- task-popup.service.ts // Handles task form popup globally for creationg and editing (details) operations
+    |   |-- shared/
+    |   |   |-- navbar.component.ts 
+    |   |   |-- footer.component.ts
+    |   |-- models/
+    |       |-- category.model.ts // Category interface
+    |       |-- task.model.ts // Task interface
     |-- assets/
     |-- styles.css
 ```
